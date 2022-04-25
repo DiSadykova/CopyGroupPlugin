@@ -35,10 +35,13 @@ namespace CopyGroupPlugin
                 Room selectRoom = GetRoomByPoint(doc, point);
                 XYZ selectRoomCenter = GetElementCenter(selectRoom);
                 XYZ offsetSelectRoomCenter = selectRoomCenter + offset;
+                double x = offsetSelectRoomCenter.X;
+                double y = offsetSelectRoomCenter.Y;
+                XYZ newOffsetSelectRoomCenter = new XYZ(x, y, 0);
 
                 Transaction transaction = new Transaction(doc);
                 transaction.Start("Копирование группы объектов");
-                doc.Create.PlaceGroup(offsetSelectRoomCenter, group.GroupType);
+                doc.Create.PlaceGroup(newOffsetSelectRoomCenter, group.GroupType);
                 transaction.Commit();
             }
             catch (Autodesk.Revit.Exceptions.OperationCanceledException)
